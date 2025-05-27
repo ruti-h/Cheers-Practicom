@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8" />
+    <title>הודעה מערכת photo click</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #6a5acd; /* סגול רקע */
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: #ff9800; /* כתום חזק */
+            color: #fff;
+            padding: 25px 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        main {
+            padding: 25px 30px;
+            line-height: 1.6;
+        }
+
+            main p {
+                margin: 15px 0;
+                font-size: 16px;
+            }
+
+        .sender-name {
+            font-weight: 700;
+            color: #ff9800;
+        }
+
+        .image-wrapper {
+            margin: 25px 0;
+            text-align: center;
+        }
+
+            .image-wrapper img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 10px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                border: 1px solid #ddd;
+            }
+
+        h2 {
+            color: #6a5acd; /* כותרת בצבע סגול */
+            margin-top: 30px;
+            font-weight: 700;
+        }
+
+        footer {
+            background: #f0f0f0;
+            color: #666;
+            font-size: 13px;
+            padding: 20px 15px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+
+        a.button-link {
+            display: inline-block;
+            background: #ff9800;
+            color: #fff !important;
+            padding: 14px 35px;
+            margin: 30px 0 0;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+            a.button-link:hover {
+                background: #fb8c00;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            הודעה מערכת photo click
+        </header>
+        <main>
+            <p>שלום,</p>
+            <p><span class="sender-name">{{SenderName}}</span> רוצה לשתף אותך בציור שצבע:</p>
+            <div class="image-wrapper">
+                <img src="{{ImageUrl}}" alt="ציור" />
+            </div>
+            <h2>{{Subject}}</h2>
+            <p>{{Body}}</p>
+            <!--<div style="text-align:center;">
+                <a href="https://paintart.onrender.com" class="button-link" target="_blank" rel="noopener noreferrer">כניסה למערכת PaintArt</a>
+            </div>-->
+        </main>
+        <footer>
+            <p>© poto click 2025. כל הזכויות שמורות.</p>
+            <p>אם קיבלת הודעה זו בטעות, אנא התעלם ממנה.</p>
+        </footer>
+    </div>
+</body>
+</html>

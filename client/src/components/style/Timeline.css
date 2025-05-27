@@ -1,0 +1,94 @@
+עיצוב כללי של ה-Timeline
+.timeline-container {
+    width: 100%;
+    padding: 40px 20px;
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* עיצוב אלמנט הזמן */
+.timeline-item {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+/* קו זמן (ליניארי) */
+.timeline-line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: 2px;
+    background-color: #FFD700;
+    z-index: 0;
+}
+
+/* עיצוב כפתורים או תיאורים לאורך ה-Timeline */
+.timeline-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    width: 100%;
+    max-width: 700px;
+    margin-left: 30px;
+    position: relative;
+}
+
+.timeline-content h3 {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.timeline-content p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* כותרת של הזמן */
+.timeline-item-left, .timeline-item-right {
+    width: 30px;
+    height: 30px;
+    background-color: #FFD700;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    z-index: 1;
+}
+
+/* צד ימין של ה-Timeline */
+.timeline-item-left {
+    left: -15px;
+}
+
+/* צד שמאל של ה-Timeline */
+.timeline-item-right {
+    right: -15px;
+}
+
+/* רגישות למסכים קטנים */
+@media (max-width: 600px) {
+    .timeline-container {
+        padding: 20px;
+    }
+
+    .timeline-content {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .timeline-line {
+        left: 10px;
+    }
+}

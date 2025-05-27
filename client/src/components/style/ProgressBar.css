@@ -1,0 +1,20 @@
+.step-search .ant-steps-item-icon {
+    background-color: #4caf50; /* ירוק */
+  }
+  
+  .step-send .ant-steps-item-icon {
+    background-color: #2196f3; /* כחול */
+  }
+  
+  .step-details .ant-steps-item-icon {
+    background-color: #ff9800; /* כתום */
+  }
+  
+  .step-matchmaker .ant-steps-item-icon {
+    background: #9c27b0; /* סגול */
+  }
+  
+  .step-finalize .ant-steps-item-icon {
+    background-color: #f44336; /* אדום */
+  }
+  

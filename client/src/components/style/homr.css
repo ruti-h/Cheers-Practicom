@@ -1,0 +1,170 @@
+/* עיצוב כללי של ה-Timeline */
+/* .timeline-container {
+  width: 100%;
+  padding: 40px 20px;
+  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+} */
+
+/* עיצוב אלמנט הזמן */
+.timeline-item {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+/* קו זמן (ליניארי) */
+.timeline-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 2px;
+  background-color: #FFD700;
+  z-index: 0;
+}
+
+/* עיצוב כפתורים או תיאורים לאורך ה-Timeline */
+.timeline-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  width: 100%;
+  max-width: 700px;
+  margin-left: 30px;
+  position: relative;
+}
+
+.timeline-content h3 {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.timeline-content p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* כותרת של הזמן */
+.timeline-item-left, .timeline-item-right {
+  width: 30px;
+  height: 30px;
+  background-color: #FFD700;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  z-index: 1;
+}
+
+/* צד ימין של ה-Timeline */
+.timeline-item-left {
+  left: -15px;
+}
+
+/* צד שמאל של ה-Timeline */
+.timeline-item-right {
+  right: -15px;
+}
+
+/* רגישות למסכים קטנים */
+@media (max-width: 600px) {
+  .timeline-container {
+      padding: 20px;
+  }
+
+  .timeline-content {
+      width: 100%;
+      margin-left: 0;
+  }
+
+  .timeline-line {
+      left: 10px;
+  }
+}
+
+/* עיצוב מתקדם ל-HEADER עם תמונה */
+
+/* עטיפת ההדר והתמונה */
+.header-container {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* תמונת הרקע */
+.header-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://www.591.co.il/wp-content/uploads/2018/09/3-1.png');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.5);
+  z-index: -1;
+}
+
+/* כותרת ראשית */
+.header-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #FFD700;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+/* אפקט כניסה */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* עיצוב ה-HEADER עצמו */
+.app-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* עיצוב כפתורים */
+.nav-button {
+  background: linear-gradient(45deg, #FFD700, #AA8500);
+  color: black;
+  font-weight: bold;
+  border-radius: 25px;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  background: linear-gradient(45deg, #AA8500, #FFD700);
+  transform: scale(1.05);
+  box-shadow: 0px 4px 15px rgba(255, 215, 0, 0.5);
+}
+
