@@ -56,7 +56,7 @@ const Header: React.FC = () => {
               },
             }}
           />
-          לחיים מרכז השידוכים
+       עבור נטפרי
         </Typography>
 
         <Box sx={{ display: "flex", gap: 2 }}>
