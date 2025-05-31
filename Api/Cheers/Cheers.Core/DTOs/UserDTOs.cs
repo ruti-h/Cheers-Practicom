@@ -20,6 +20,9 @@ namespace Cheers.Core.DTOs
         public DateTime CreatedAt { get; set; } // תאריך יצירת המשתמש
 
         public DateTime UpdatedAt { get; set; } // תאריך עדכון אחרון
+        public string? UserRole { get; set; }  // 🆕 תפקיד יחיד (Admin/Candidate/MatchMaker)
+        public CandidateDTOs? CandidateDetails { get; set; } // 🆕 פרטי מועמד
+
 
     }
 }

@@ -17,6 +17,6 @@ namespace Cheers.Core
             //CreateMap<MeetingDTOs, Meeting>().ReverseMap();
             CreateMap<UserDTOs, User>().ReverseMap();
         }
-    
+     
     }
 }

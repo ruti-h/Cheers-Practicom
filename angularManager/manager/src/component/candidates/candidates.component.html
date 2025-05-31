@@ -1,0 +1,327 @@
+<div class="candidates-page">
+  <!-- Background Animation -->
+  <div class="background-animation">
+    <div class="floating-element element-1"></div>
+    <div class="floating-element element-2"></div>
+    <div class="floating-element element-3"></div>
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="header-content">
+        <div class="title-section">
+          <h1 class="page-title">ניהול מועמדים</h1>
+          <p class="page-subtitle">רשימת כל המועמדים במערכת</p>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn btn-primary" (click)="addCandidate()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+            </svg>
+            הוסף מועמד
+          </button>
+
+          <button class="btn btn-outline" (click)="importCandidates()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+            </svg>
+            ייבא
+          </button>
+
+          <button class="btn btn-outline" (click)="exportCandidates()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+            </svg>
+            ייצא
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-card">
+      <div class="filters-content">
+        <div class="search-box">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          </svg>
+          <input 
+            type="text" 
+            placeholder="חפש מועמדים..." 
+            [(ngModel)]="searchTerm"
+            class="search-input"
+          >
+        </div>
+
+        <select [(ngModel)]="filterStatus" class="filter-select">
+          <option value="all">כל הסטטוסים</option>
+          <option value="active">פעיל</option>
+          <option value="pending">ממתין</option>
+          <option value="matched">מותאם</option>
+          <option value="inactive">לא פעיל</option>
+        </select>
+
+        <select [(ngModel)]="filterGender" class="filter-select">
+          <option value="all">כל המגדרים</option>
+          <option value="male">גברים</option>
+          <option value="female">נשים</option>
+        </select>
+
+        <button class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M14,12V19.88C14.04,20.18 13.94,20.5 13.71,20.71C13.32,21.1 12.69,21.1 12.3,20.71L10.29,18.7C10.06,18.47 9.96,18.16 10,17.87V12H9.97L4.21,4.62C3.87,4.19 3.95,3.56 4.38,3.22C4.57,3.08 4.78,3 5,3V3H19V3C19.22,3 19.43,3.08 19.62,3.22C20.05,3.56 20.13,4.19 19.79,4.62L14.03,12H14Z"/>
+          </svg>
+          מסננים נוספים
+        </button>
+      </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-content">
+          <div class="stat-info">
+            <p class="stat-label">סך המועמדים</p>
+            <p class="stat-value">{{ candidates.length }}</p>
+          </div>
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-active">
+        <div class="stat-content">
+          <div class="stat-info">
+            <p class="stat-label">פעילים</p>
+            <p class="stat-value">{{ getCandidatesByStatus('active') }}</p>
+          </div>
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-matched">
+        <div class="stat-content">
+          <div class="stat-info">
+            <p class="stat-label">מותאמים</p>
+            <p class="stat-value">{{ getCandidatesByStatus('matched') }}</p>
+          </div>
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-pending">
+        <div class="stat-content">
+          <div class="stat-info">
+            <p class="stat-label">ממתינים</p>
+            <p class="stat-value">{{ getCandidatesByStatus('pending') }}</p>
+          </div>
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.7L16.2,16.2Z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Candidates Grid -->
+    <div class="candidates-grid">
+      <div class="candidate-card" *ngFor="let candidate of filteredCandidates">
+        <div class="card-header">
+          <div class="candidate-info">
+            <div class="avatar">
+              <span>{{ candidate.firstName[0] }}{{ candidate.lastName[0] }}</span>
+            </div>
+            <div class="basic-info">
+              <h3 class="candidate-name">
+                {{ candidate.firstName }} {{ candidate.lastName }}
+                <span class="gender-icon">{{ getGenderIcon(candidate.gender) }}</span>
+                <svg *ngIf="candidate.verified" class="verified-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </h3>
+              <p class="candidate-age">גיל {{ candidate.age }}</p>
+            </div>
+          </div>
+          <div class="status-badge" [class]="getStatusBadgeClass(candidate.status)">
+            {{ getStatusText(candidate.status) }}
+          </div>
+        </div>
+
+        <div class="card-content">
+          <div class="contact-info">
+            <div class="contact-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
+              </svg>
+              <span class="contact-text">{{ candidate.email }}</span>
+            </div>
+
+            <div class="contact-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/>
+              </svg>
+              <span class="contact-text">{{ candidate.phone }}</span>
+            </div>
+
+            <div class="contact-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/>
+              </svg>
+              <span class="contact-text">{{ candidate.city }}</span>
+            </div>
+
+            <div class="contact-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z"/>
+              </svg>
+              <span class="contact-text">נרשם: {{ candidate.registrationDate | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+
+          <!-- Profile Completion -->
+          <div class="progress-section">
+            <div class="progress-header">
+              <span class="progress-label">השלמת פרופיל</span>
+              <span class="progress-value">{{ candidate.profileCompletion }}%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="candidate.profileCompletion"></div>
+            </div>
+          </div>
+
+          <!-- Match Score -->
+          <div class="match-score" *ngIf="candidate.matchScore">
+            <span class="score-label">ציון התאמה</span>
+            <div class="score-value">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.46,13.97L5.82,21L12,17.27Z"/>
+              </svg>
+              <span>{{ candidate.matchScore }}</span>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="card-actions">
+            <button class="btn btn-sm btn-outline" (click)="viewCandidate(candidate)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"/>
+              </svg>
+              צפה
+            </button>
+
+            <button class="btn btn-sm btn-outline" (click)="editCandidate(candidate)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"/>
+              </svg>
+              ערוך
+            </button>
+
+            <button class="btn btn-sm btn-outline btn-danger" (click)="deleteCandidate(candidate)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+              </svg>
+              מחק
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="filteredCandidates.length === 0">
+      <div class="empty-content">
+        <svg class="empty-icon" width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/>
+        </svg>
+        <h3 class="empty-title">לא נמצאו מועמדים</h3>
+        <p class="empty-description">נסה לשנות את הפילטרים או להוסיף מועמדים חדשים</p>
+        <button class="btn btn-primary" (click)="addCandidate()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+          </svg>
+          הוסף מועמד ראשון
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()" *ngIf="selectedCandidate">
+      <div class="modal-header">
+        <h2 class="modal-title">פרטי מועמד: {{ selectedCandidate.firstName }} {{ selectedCandidate.lastName }}</h2>
+        <button class="modal-close" (click)="closeModal()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div class="modal-field">
+            <label>שם מלא</label>
+            <p>{{ selectedCandidate.firstName }} {{ selectedCandidate.lastName }}</p>
+          </div>
+          <div class="modal-field">
+            <label>גיל</label>
+            <p>{{ selectedCandidate.age }}</p>
+          </div>
+          <div class="modal-field">
+            <label>אימייל</label>
+            <p>{{ selectedCandidate.email }}</p>
+          </div>
+          <div class="modal-field">
+            <label>טלפון</label>
+            <p>{{ selectedCandidate.phone }}</p>
+          </div>
+          <div class="modal-field">
+            <label>עיר</label>
+            <p>{{ selectedCandidate.city }}</p>
+          </div>
+          <div class="modal-field">
+            <label>סטטוס</label>
+            <div class="status-badge" [class]="getStatusBadgeClass(selectedCandidate.status)">
+              {{ getStatusText(selectedCandidate.status) }}
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" (click)="sendEmail(selectedCandidate)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
+            </svg>
+            שלח מייל
+          </button>
+          <button class="btn btn-outline" (click)="createMatch(selectedCandidate)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"/>
+            </svg>
+            צור התאמה
+          </button>
+          <button class="btn btn-outline" (click)="editCandidate(selectedCandidate)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"/>
+            </svg>
+            ערוך
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,305 @@
+<div class="reports-page">
+  <!-- Background Animation -->
+  <div class="background-animation">
+    <div class="floating-element element-1"></div>
+    <div class="floating-element element-2"></div>
+    <div class="floating-element element-3"></div>
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="header-content">
+        <div class="title-section">
+          <h1 class="page-title">דוחות ואנליטיקה</h1>
+          <p class="page-subtitle">תובנות מתקדמות על ביצועי המערכת</p>
+        </div>
+
+        <div class="header-actions">
+          <select [(ngModel)]="selectedPeriod" class="period-select">
+            <option value="week">שבוע אחרון</option>
+            <option value="month">חודש אחרון</option>
+            <option value="quarter">רבעון אחרון</option>
+            <option value="year">שנה אחרונה</option>
+          </select>
+
+          <button class="btn btn-outline" (click)="refreshData()" [disabled]="isLoading">
+            <svg [class.animate-spin]="isLoading" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"/>
+            </svg>
+            רענן
+          </button>
+
+          <button class="btn btn-primary" (click)="exportReport()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+            </svg>
+            ייצא דוח
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="metrics-grid">
+      <div class="metric-card metric-matches">
+        <div class="metric-content">
+          <div class="metric-info">
+            <p class="metric-label">סך ההתאמות</p>
+            <p class="metric-value">{{ getKeyMetrics().totalMatches | number }}</p>
+            <p class="metric-change">+12.5% מהחודש הקודם</p>
+          </div>
+          <div class="metric-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12,2C13.1,2 14,2.9 14,4C14,5.1 13.1,6 12,6C10.9,6 10,5.1 10,4C10,2.9 10.9,2 12,2M21,9V7L15,1H5C3.89,1 3,1.89 3,3V21A2,2 0 0,0 5,23H19A2,2 0 0,0 21,21V9M19,9H14V4H5V19H19V9Z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card metric-success">
+        <div class="metric-content">
+          <div class="metric-info">
+            <p class="metric-label">אחוז הצלחה</p>
+            <p class="metric-value">{{ getKeyMetrics().successRate }}%</p>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="getKeyMetrics().successRate"></div>
+            </div>
+          </div>
+          <div class="metric-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card metric-time">
+        <div class="metric-content">
+          <div class="metric-info">
+            <p class="metric-label">זמן ממוצע להתאמה</p>
+            <p class="metric-value">{{ getKeyMetrics().averageTime }}</p>
+            <p class="metric-unit">ימים בממוצע</p>
+          </div>
+          <div class="metric-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.7L16.2,16.2Z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card metric-rating">
+        <div class="metric-content">
+          <div class="metric-info">
+            <p class="metric-label">דירוג שביעות רצון</p>
+            <p class="metric-value">{{ getKeyMetrics().satisfaction }}/5</p>
+            <div class="stars">
+              <svg *ngFor="let star of [1,2,3,4,5]" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.46,13.97L5.82,21L12,17.27Z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="metric-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.46,13.97L5.82,21L12,17.27Z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-section">
+      <div class="tabs-header">
+        <button 
+          *ngFor="let tab of [
+            {id: 'registrations', label: 'הרשמות', color: 'blue'},
+            {id: 'success', label: 'הצלחות', color: 'green'},
+            {id: 'demographics', label: 'דמוגרפיה', color: 'purple'},
+            {id: 'efficiency', label: 'יעילות', color: 'orange'}
+          ]"
+          class="tab-button"
+          [class.active]="activeTab === tab.id"
+          [attr.data-color]="tab.color"
+          (click)="setActiveTab(tab.id)"
+        >
+          {{ tab.label }}
+        </button>
+      </div>
+
+      <!-- Registrations Tab -->
+      <div class="tab-content" *ngIf="activeTab === 'registrations'">
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3 class="chart-title">הרשמות חודשיות לפי מגדר</h3>
+              <p class="chart-description">התפלגות הרשמות גברים ונשים בחודשים האחרונים</p>
+            </div>
+            <div class="chart-content">
+              <div class="chart-placeholder">
+                <svg width="100%" height="300" viewBox="0 0 400 300">
+                  <defs>
+                    <linearGradient id="maleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="femaleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" style="stop-color:#ec4899;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#be185d;stop-opacity:1" />
+                    </linearGradient>
+                  </defs>
+                  
+                  <!-- Chart bars -->
+                  <g *ngFor="let data of reportData.monthlyRegistrations; let i = index">
+                    <!-- Male bars -->
+                    <rect 
+                      [attr.x]="50 + i * 55" 
+                      [attr.y]="250 - data.male * 2" 
+                      width="20" 
+                      [attr.height]="data.male * 2"
+                      fill="url(#maleGradient)"
+                      rx="2"
+                    />
+                    <!-- Female bars -->
+                    <rect 
+                      [attr.x]="75 + i * 55" 
+                      [attr.y]="250 - data.female * 2" 
+                      width="20" 
+                      [attr.height]="data.female * 2"
+                      fill="url(#femaleGradient)"
+                      rx="2"
+                    />
+                    <!-- Month labels -->
+                    <text 
+                      [attr.x]="70 + i * 55" 
+                      y="270" 
+                      text-anchor="middle" 
+                      fill="#9ca3af" 
+                      font-size="12"
+                    >
+                      {{ data.month }}
+                    </text>
+                  </g>
+                  
+                  <!-- Legend -->
+                  <rect x="50" y="20" width="15" height="15" fill="url(#maleGradient)" rx="2"/>
+                  <text x="75" y="32" fill="#9ca3af" font-size="14">גברים</text>
+                  <rect x="130" y="20" width="15" height="15" fill="url(#femaleGradient)" rx="2"/>
+                  <text x="155" y="32" fill="#9ca3af" font-size="14">נשים</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-card">
+            <h3 class="stats-title">סטטיסטיקות הרשמות</h3>
+            <div class="stats-list">
+              <div class="stat-item stat-total">
+                <span class="stat-label">סך הרשמות החודש</span>
+                <span class="stat-number">127</span>
+              </div>
+              <div class="stat-item stat-male">
+                <span class="stat-label">גברים</span>
+                <span class="stat-number">58 (45.7%)</span>
+              </div>
+              <div class="stat-item stat-female">
+                <span class="stat-label">נשים</span>
+                <span class="stat-number">69 (54.3%)</span>
+              </div>
+              <div class="stat-item stat-growth">
+                <span class="stat-label">גידול מהחודש הקודם</span>
+                <span class="stat-number">+15.2%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Tab -->
+      <div class="tab-content" *ngIf="activeTab === 'success'">
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3 class="chart-title">מגמת הצלחה שבועית</h3>
+              <p class="chart-description">אחוז הצלחה בהתאמות בשבועות האחרונים</p>
+            </div>
+            <div class="chart-content">
+              <div class="chart-placeholder">
+                <svg width="100%" height="300" viewBox="0 0 400 300">
+                  <defs>
+                    <linearGradient id="successGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.8" />
+                      <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.1" />
+                    </linearGradient>
+                  </defs>
+                  
+                  <!-- Success rate area chart -->
+                  <path 
+                    d="M 50,{{ 250 - reportData.successRates[0].rate * 2 }} 
+                       L 110,{{ 250 - reportData.successRates[1].rate * 2 }}
+                       L 170,{{ 250 - reportData.successRates[2].rate * 2 }}
+                       L 230,{{ 250 - reportData.successRates[3].rate * 2 }}
+                       L 290,{{ 250 - reportData.successRates[4].rate * 2 }}
+                       L 350,{{ 250 - reportData.successRates[5].rate * 2 }}
+                       L 350,250 L 50,250 Z"
+                    fill="url(#successGradient)"
+                  />
+                  
+                  <!-- Success rate line -->
+                  <path 
+                    d="M 50,{{ 250 - reportData.successRates[0].rate * 2 }} 
+                       L 110,{{ 250 - reportData.successRates[1].rate * 2 }}
+                       L 170,{{ 250 - reportData.successRates[2].rate * 2 }}
+                       L 230,{{ 250 - reportData.successRates[3].rate * 2 }}
+                       L 290,{{ 250 - reportData.successRates[4].rate * 2 }}
+                       L 350,{{ 250 - reportData.successRates[5].rate * 2 }}"
+                    stroke="#10b981"
+                    stroke-width="3"
+                    fill="none"
+                  />
+                  
+                  <!-- Data points -->
+                  <circle 
+                    *ngFor="let data of reportData.successRates; let i = index"
+                    [attr.cx]="50 + i * 60" 
+                    [attr.cy]="250 - data.rate * 2" 
+                    r="4" 
+                    fill="#10b981"
+                  />
+                  
+                  <!-- Week labels -->
+                  <text 
+                    *ngFor="let data of reportData.successRates; let i = index"
+                    [attr.x]="50 + i * 60" 
+                    y="270" 
+                    text-anchor="middle" 
+                    fill="#9ca3af" 
+                    font-size="12"
+                  >
+                    {{ data.period }}
+                  </text>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="achievements-card">
+            <h3 class="achievements-title">הישגים מיוחדים</h3>
+            <div class="achievements-list">
+              <div class="achievement-item achievement-record">
+                <div class="achievement-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
+                  </svg>
+                </div>
+                <div class="achievement-content">
+                  <h4>שיא חודשי</h4>
+                  <p>23 זוגות התארסו החודש - שיא של כל הזמנים!</p>
+                </div>
+              </div>
+
+              <div class="achievement-item achievement-perfect">
+                <div class="achievement-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12

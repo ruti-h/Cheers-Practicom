@@ -48,9 +48,8 @@ namespace Cheers.Data
             //Services.AddDbContext<DataContext>(options =>
             //    //    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), options => options.CommandTimeout(60)));
             //    //builder.Services.AddDbContext<DataContext>();
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-SSNMLFD;Initial Catalog=CheersNew8;Integrated Security=false;  Trusted_Connection = SSPI; MultipleActiveResultSets = true; TrustServerCertificate = true");
-            //    //optionsBuilder.UseMySql("server=bh4kgdpp7ashegjmyrdh-mysql.services.clever-cloud.com;user=uchoigwrojndnpgk;password=RTuYaesqGhRliAMKStXZ;dataBase=bh4kgdpp7ashegjmyrdh;", ServerVersion.AutoDetect("server=bh4kgdpp7ashegjmyrdh-mysql.services.clever-cloud.com;user=uchoigwrojndnpgk;password=RTuYaesqGhRliAMKStXZ;dataBase=bh4kgdpp7ashegjmyrdh;"));
-            //    string connectionString = "server=bh4kgdpp7ashegjmyrdh-mysql.services.clever-cloud.com;user=uchoigwrojndnpgk;password=RTuYaesqGhRliAMKStXZ;dataBase=bh4kgdpp7ashegjmyrdh;";
+            optionsBuilder.UseMySql("server=bh4kgdpp7ashegjmyrdh-mysql.services.clever-cloud.com;user=uchoigwrojndnpgk;password=RTuYaesqGhRliAMKStXZ;dataBase=bh4kgdpp7ashegjmyrdh;", ServerVersion.AutoDetect("server=bh4kgdpp7ashegjmyrdh-mysql.services.clever-cloud.com;user=uchoigwrojndnpgk;password=RTuYaesqGhRliAMKStXZ;dataBase=bh4kgdpp7ashegjmyrdh;"));
+            string connectionString = "server=bh4kgdpp7ashegjmyrdh-mysql.services.clever-cloud.com;user=uchoigwrojndnpgk;password=RTuYaesqGhRliAMKStXZ;dataBase=bh4kgdpp7ashegjmyrdh;";
 
             //    // רישום ה-DataContext
             //    optionsBuilder.Services.AddDbContext<DataContext>(options =>
