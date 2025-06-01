@@ -31,7 +31,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import ArrowBackIcon from '@mui/icons-material/ArrowForward';
 import ArrowForwardIcon from '@mui/icons-material/ArrowBack';
 import InfoIcon from '@mui/icons-material/Info';
-import './style/meetingPlace.css';
+import '../components/style/meetingPlace.css';
 import PlaceDetailsDialog from '../components/places/PlaceDetailsDialog';
 
 // ייבוא התמונות

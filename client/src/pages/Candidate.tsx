@@ -36,7 +36,7 @@ import createCache from "@emotion/cache"
 import rtlPlugin from "stylis-plugin-rtl"
 import { prefixer } from "stylis"
 import candidateStore, { Gender } from "../store/candidateStore"
-import UploadDialog from "./file_pages/UploadDialog" // נוסיף את הקומפוננט החדש
+import UploadDialog from "../components/UI/UploadDialog" // נוסיף את הקומפוננט החדש
 
 // RTL configuration
 const rtlCache = createCache({

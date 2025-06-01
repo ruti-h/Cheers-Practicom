@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { Box, Container, Typography, Button } from "@mui/material"
-import FloatingCircles from "./floating-circles"
+import FloatingCircles from "../UI/floating-circles"
 
 interface CtaSectionProps {
   isVisible: boolean

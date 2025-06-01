@@ -47,18 +47,18 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Provider } from 'react-redux'
 
-import CandidatePage from "./components/Candidate"
-import Home from "./components/home.tsx"
-import LoginPage from "./components/login"
-import Shadchan from "./components/Shdchan"
-import RegisterPage from "./components/register"
-import MeetingPlaces from "./components/meetingPlaces"
-import CandidateGenderSelectionPage from "./components/CandidateGenderSelectionPage"
-import Layout from "./layot.tsx"
-import CandidateSummary from "./components/CandidateSummary.tsx"
-import Dashboard from "./components/dashboard.tsx" // הוסף את זה
+import CandidatePage from "./pages/Candidate.tsx"
+import Home from "./pages/home.tsx"
+import LoginPage from "./pages/login.tsx"
+import Shadchan from "./pages/Shdchan.tsx"
+import RegisterPage from "./pages/register.tsx"
+import MeetingPlaces from "./pages/meetingPlaces.tsx"
+import CandidateGenderSelectionPage from "./pages/CandidateGenderSelectionPage.tsx"
+import Layout from "./components/Layot/layot.tsx"
+import CandidateSummary from "./pages/CandidateSummary.tsx"
+import Dashboard from "./pages/dashboard.tsx" // הוסף את זה
 import store from "./store/store.ts"
-import CandidateEdit from "./components/CandidateEdit.tsx"
+import CandidateEdit from "./pages/CandidateEdit.tsx"
 
 const App = () => {
   return (

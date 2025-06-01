@@ -3,7 +3,7 @@
 import type React from "react"
 import { Box, Container, Typography, Grid, Divider } from "@mui/material"
 import { Favorite as HeartIcon } from "@mui/icons-material"
-import FloatingCircles from "./floating-circles"
+import FloatingCircles from "../UI/floating-circles"
 
 interface ProcessSectionProps {
   isVisible: boolean

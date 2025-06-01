@@ -3,7 +3,7 @@
 import type React from "react"
 import { Box, Container, Typography, Grid } from "@mui/material"
 import { People as Users, VerifiedUser as Verified, Chat as MessageCircle } from "@mui/icons-material"
-import FloatingCircles from "./floating-circles"
+import FloatingCircles from "../UI/floating-circles"
 
 interface StatsSectionProps {
   isVisible: boolean

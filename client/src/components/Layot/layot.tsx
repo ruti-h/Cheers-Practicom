@@ -1,5 +1,5 @@
 import type { ReactNode } from "react"
-import Header from "../src/components/header"
+import Header from "./Header-N"
 import { Box } from "@mui/material"
 
 interface LayoutProps {

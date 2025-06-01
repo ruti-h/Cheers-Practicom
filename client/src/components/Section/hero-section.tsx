@@ -3,7 +3,7 @@
 import type React from "react"
 import { Box, Container, Typography, Button } from "@mui/material"
 import { ExpandMore as ChevronDown } from "@mui/icons-material"
-import FloatingCircles from "./floating-circles"
+import FloatingCircles from "../UI/floating-circles"
 
 interface HeroSectionProps {
   isVisible: boolean

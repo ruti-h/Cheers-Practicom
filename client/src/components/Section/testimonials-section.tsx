@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { Box, Container, Typography, Grid, Card, CardContent } from "@mui/material"
-import FloatingCircles from "./floating-circles"
+import FloatingCircles from "../UI/floating-circles"
 
 interface TestimonialsSectionProps {
   isVisible: boolean

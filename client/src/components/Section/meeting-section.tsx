@@ -3,7 +3,7 @@
 import type React from "react"
 import { Box, Container, Typography, Button } from "@mui/material"
 import { Link } from "react-router-dom"
-import FloatingCircles from "./floating-circles"
+import FloatingCircles from "../UI/floating-circles"
 
 interface MeetingSectionProps {
   isVisible: boolean

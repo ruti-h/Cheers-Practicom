@@ -36,7 +36,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import LogoutIcon from '@mui/icons-material/Logout'
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf'
 import EmailIcon from '@mui/icons-material/Email'
-import EmailSender from './EmailSender' // ייבוא הקומפוננטה
+import EmailSender from '../components/UI/EmailSender' // ייבוא הקומפוננטה
 
 // RTL configuration
 const rtlCache = createCache({

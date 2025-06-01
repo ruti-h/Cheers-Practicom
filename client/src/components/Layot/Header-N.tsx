@@ -295,7 +295,7 @@ const Header: React.FC<HeaderProps> = ({ currentPath = "/" }) => {
             )}
           </Box>
         )}
-      </Toolbar>
+      </Toolbar>  
     </AppBar>
   )
 }

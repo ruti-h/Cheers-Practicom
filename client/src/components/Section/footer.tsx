@@ -4,7 +4,7 @@ import type React from "react"
 import { Box, Container, Grid, Typography, Link as MuiLink } from "@mui/material"
 import { Synagogue as SynagoguIcon } from "@mui/icons-material"
 import { Link } from "react-router-dom"
-import FloatingCircles from "./floating-circles"
+import FloatingCircles from "../UI/floating-circles"
 
 const Footer: React.FC = () => {
   return (

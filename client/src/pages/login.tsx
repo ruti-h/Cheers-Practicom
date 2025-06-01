@@ -48,7 +48,7 @@ import {
   Google as GoogleIcon,
   Login as LoginIcon,
 } from "@mui/icons-material"
-import { supabase } from "./supabaseClient"
+import { supabase } from "../components/supabaseClient"
 
 // Create RTL cache
 const cacheRtl = createCache({

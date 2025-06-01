@@ -2,8 +2,8 @@
 
 import type React from "react"
 import { Box, Container, Typography } from "@mui/material"
-import FloatingCircles from "./floating-circles"
-import MatchAnimation from "../match-animation"
+import FloatingCircles from "../UI/floating-circles"
+import MatchAnimation from "../UI/match-animation"
 import EngagedCoupleCarousel from "./engaged-couple-carousel"
 
 interface ProfilesSectionProps {
