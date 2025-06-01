@@ -102,7 +102,8 @@ baseUrl:string
     try {
       sessionStorage.setItem(USER_STORAGE_KEY, JSON.stringify(response.user));
       sessionStorage.setItem(TOKEN_STORAGE_KEY, response.token);
-      
+      console.log(this.token);
+
       // פענוח הטוקן ושמירת התפקיד
       const role = this.decodeTokenAndGetRole(response.token);
       if (role) {
@@ -186,12 +187,15 @@ baseUrl:string
       // קריאת שרת להרשמה
       const response = await axios.post(
        `${this.baseUrl}/Auth/register`,
+       
         registerData,
         {
           headers: {
             "Content-Type": "application/json"
           },
+
         }
+
       );
 
       runInAction(() => {
