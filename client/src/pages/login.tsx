@@ -288,7 +288,8 @@ const LoginPage = () => {
     // וידוא תקינות הטופס
     const isEmailValid = validateEmail(email)
     const isPasswordValid = validatePassword(password)
-
+    console.log('📧 Email:', email); // בדוק שהאימייל לא undefined
+    console.log('🔑 Password length:', password?.length); // בדוק שהסיסמה לא undefined
     if (!isEmailValid || !isPasswordValid) {
       console.log('❌ שגיאות ולידציה בטופס');
       return
@@ -301,6 +302,7 @@ const LoginPage = () => {
       
       // התחבר עם Redux
       const loginResult = await dispatch(loginUser({
+        
         username: email, // השרת מצפה ל-email בשדה username
         password: password
       })).unwrap()
@@ -326,7 +328,9 @@ const LoginPage = () => {
       }, 1000)
 
     } catch (error: any) {
-      console.error('❌ שגיאה בהתחברות:', error)
+      console.error('❌ שגיאה בהתחברות:', error);
+  console.error('❌ פרטי השגיאה:', error.message);
+  console.error('❌ Stack trace:', error.stack);
       // השגיאה תוצג דרך Redux error state
     } finally {
       setIsLoggingIn(false)

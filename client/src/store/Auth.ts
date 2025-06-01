@@ -303,7 +303,9 @@ class AuthStore {
 
   constructor() {
     makeAutoObservable(this);
+  //  this.baseUrl="https://localhost:7215/api"
     this.baseUrl = import.meta.env.VITE_API_URL ;
+
     // טעינת נתוני המשתמש מה-Session Storage בעת אתחול ה-store
     this.loadUserFromStorage();
   }
@@ -481,6 +483,7 @@ class AuthStore {
       
       this.loading = true;
       this.error = null;
+      console.log('baseUrl:',this.baseUrl);
       
       // קריאת שרת ללוגין
       const response = await axios.post<ServerResponse>(
