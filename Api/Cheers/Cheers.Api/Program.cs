@@ -31,7 +31,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "https://cheers-practicom.onrender.com", "http://localhost:4200")
+        policy.WithOrigins("http://localhost:5173", "https://cheers-pjzw.onrender.com", "http://localhost:4200")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials(); // הוספתי AllowCredentials

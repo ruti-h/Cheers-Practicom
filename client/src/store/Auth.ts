@@ -303,7 +303,7 @@ class AuthStore {
 
   constructor() {
     makeAutoObservable(this);
-    this.baseUrl = import.meta.env.VITE_API_URL || "https://server-practicom.onrender.com/api";
+    this.baseUrl = import.meta.env.VITE_API_URL ;
     // טעינת נתוני המשתמש מה-Session Storage בעת אתחול ה-store
     this.loadUserFromStorage();
   }
