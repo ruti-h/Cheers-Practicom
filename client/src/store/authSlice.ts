@@ -49,6 +49,7 @@ export const loginUser = createAsyncThunk<User, LoginCredentials>(
       const response = await axios.post<LoginResponse>(
         `${baseUrl}/Auth/login`,
         {
+          
           email: credentials.username, // השרת מצפה ל-email
           password: credentials.password
         }
