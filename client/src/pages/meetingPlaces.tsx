@@ -35,13 +35,13 @@ import '../components/style/meetingPlace.css';
 import PlaceDetailsDialog from '../components/places/PlaceDetailsDialog';
 
 // ייבוא התמונות
-import image1 from './Picture/storeShops_image1_id165_rnd4Qf9.jpg';
-import image2 from './Picture/WhatsApp-Image-2023-03-22-at-09.37.46-2-1024x768-1-jpeg.webp';
-import image3 from './Picture/הפארק-הלאומי-רמת-גן.jpg';
-import image4 from './Picture/מלון וולדורף אסטוריה.jpg';
-import image5 from './Picture/1-אקווריום-ישראל-ירושלים-צילום-שלומי-כהן-2.jpg';
-import image6 from './Picture/טילת נתניה.jpg';
-import image7 from './Picture/כפר המכביה.jpg';
+// import image1 from './Picture/storeShops_image1_id165_rnd4Qf9.jpg';
+// import image2 from './Picture/WhatsApp-Image-2023-03-22-at-09.37.46-2-1024x768-1-jpeg.webp';
+// import image3 from './Picture/הפארק-הלאומי-רמת-גן.jpg';
+// import image4 from './Picture/מלון וולדורף אסטוריה.jpg';
+// import image5 from './Picture/1-אקווריום-ישראל-ירושלים-צילום-שלומי-כהן-2.jpg';
+// import image6 from './Picture/טילת נתניה.jpg';
+// import image7 from './Picture/כפר המכביה.jpg';
 
 type Location = {
   id: number;
@@ -64,7 +64,7 @@ type Location = {
 const extendedLocations: Location[] = [
     { 
         id: 1, 
-        image: image1, 
+        image: "https://y33.co.il/wp-content/uploads/2023/07/%D7%9E%D7%9C%D7%95%D7%9F-%D7%99%D7%A8%D7%9E%D7%99%D7%94%D7%95-33-7.jpg", 
         area: 'ירושלים', 
         type: 'מלון', 
         likes: 0, 
@@ -80,8 +80,8 @@ const extendedLocations: Location[] = [
     },
     { 
         id: 2, 
-        image: image2, 
-        area: 'מרכז', 
+        image: "https://images.rest.co.il/Customers/80381841/41939ada1e7f4d5e84d28b9a486d86ae_56.jpg", 
+        area: 'בני ברק', 
         type: 'מסעדה', 
         likes: 0, 
         meets: 0,
@@ -96,9 +96,9 @@ const extendedLocations: Location[] = [
     },
     { 
         id: 3, 
-        image: image3, 
+        image: "https://cms-media.ramat-gan.muni.il/media/xahju2tl/banner-mobile.jpg", 
         area: 'תל אביב', 
-        type: 'פארק', 
+        type: 'פארק הלאומי', 
         likes: 0, 
         meets: 0,
         priceRange: 'חינם',
@@ -112,7 +112,7 @@ const extendedLocations: Location[] = [
     },
     { 
         id: 4, 
-        image: image4, 
+        image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/496718311.jpg?k=b48f906856b42e02f83875f7f1f6bc75401e6d70730fdfb48cdfffce8d4033c0&o=&hp=1", 
         area: 'ירושלים', 
         type: 'מלון וולדורף אסטוריה', 
         likes: 0, 
@@ -128,7 +128,7 @@ const extendedLocations: Location[] = [
     },
     { 
         id: 5, 
-        image: image5, 
+        image: "https://bvh.co.il/wp-content/uploads/2022/06/underwater-tunnel_78361-1327.webp", 
         area: 'ירושלים', 
         type: 'אקווריום ישראל', 
         likes: 0, 
@@ -144,7 +144,7 @@ const extendedLocations: Location[] = [
     },
     { 
         id: 6, 
-        image: image6, 
+        image: "https://www.netanya.muni.il/PublishingImages/%D7%A9%D7%9B%D7%95%D7%A0%D7%95%D7%AA%20%D7%95%D7%A8%D7%91%D7%A2%D7%99%D7%9D/13.JPG", 
         area: 'נתניה', 
         type: 'טילת נתניה', 
         likes: 0, 
@@ -160,7 +160,7 @@ const extendedLocations: Location[] = [
     },
     { 
         id: 7, 
-        image: image7, 
+        image: "https://www.kmc-hotel.co.il/octopus/upload/images/resorts/thumbsautoxauto_mh_446_mw_318/untitled-26-1-.jpg", 
         area: 'רמת גן', 
         type: 'כפר המכביה', 
         likes: 0, 
