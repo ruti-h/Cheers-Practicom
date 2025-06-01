@@ -56,7 +56,7 @@ const Header: React.FC = () => {
               },
             }}
           />
-    לחיים מרכז שידוכים
+          לחיים מרכז שידוכים
         </Typography>
 
         <Box sx={{ display: "flex", gap: 2 }}>

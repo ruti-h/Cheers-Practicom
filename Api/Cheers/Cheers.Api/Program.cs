@@ -49,7 +49,21 @@ string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING"
 // רישום ה-DataContext - תוקן (הסרתי כפילות)
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+//string baseConnectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ??
+//                              builder.Configuration["ConnectionStrings:DefaultConnection"];
 
+//// שים לב - תיקון database (לא dataBase):
+//string connectionString = $"{baseConnectionString};Pooling=true;MaximumPoolSize=2;ConnectionTimeout=30;CommandTimeout=60;";
+
+//// הגדרת DbContext
+//builder.Services.AddDbContext<DataContext>(options =>
+//    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), mySqlOptions =>
+//    {
+//        mySqlOptions.EnableRetryOnFailure(
+//            maxRetryCount: 3,
+//            maxRetryDelay: TimeSpan.FromSeconds(5),
+//            errorNumbersToAdd: null);
+//    }), ServiceLifetime.Scoped);
 // רישום ה-repositories
 builder.Services.AddScoped<IRepositoryCandidate, RepositortCandidate>();
 builder.Services.AddScoped<IRepositoryUser, RepositoryUsers>();

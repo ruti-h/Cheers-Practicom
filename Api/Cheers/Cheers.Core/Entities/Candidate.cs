@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cheers.Core.Entities
 {
-    [Table("Candidate")]
+    [Table("Candidates")]
 
     public class Candidate
     {
