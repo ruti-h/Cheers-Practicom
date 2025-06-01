@@ -889,7 +889,7 @@ const CandidateSummary: React.FC = () => {
   }
 
   const candidateData = getCandidateDataFromStorage();
-
+const baseUrl= import.meta.env.VITE_API_URL;
   useEffect(() => {
     if (!user) {
       navigate("/login")
@@ -952,7 +952,7 @@ const CandidateSummary: React.FC = () => {
 
       console.log('📤 שולח נתונים לשרת:', dataToSubmit);
 
-      const response = await fetch('https://localhost:7215/api/Candidate', {
+      const response = await fetch(`${baseUrl}/Candidate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

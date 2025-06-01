@@ -54,6 +54,7 @@ const UploadDialog: React.FC<UploadDialogProps> = ({
   const [expectedIdNumber, setExpectedIdNumber] = useState('');
   const [verificationResult, setVerificationResult] = useState<VerificationResult | null>(null);
   const [uploadError, setUploadError] = useState<string>('');
+  const baseUrl  = import.meta.env.VITE_API_URL;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -73,16 +74,14 @@ const UploadDialog: React.FC<UploadDialogProps> = ({
       setUploadError('');
       console.log('מנסה להתחבר לשרת...');
       
-      const serverUrl = 'https://localhost:7215';
-      
-      console.log(`בודק שרת ב: ${serverUrl}`);
-      const response = await fetch(`${serverUrl}/api/upload/presigned-url?fileName=${encodeURIComponent(file.name)}`);
+    
+      console.log(`בודק שרת ב: ${baseUrl}`);
+      const response = await fetch(`${baseUrl}/upload/presigned-url?fileName=${encodeURIComponent(file.name)}`);
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       
-      console.log(`✅ השרת נמצא ב: ${serverUrl}`);
 
       const data = await response.json();
       const presignedUrl = data.url;
@@ -161,7 +160,7 @@ const UploadDialog: React.FC<UploadDialogProps> = ({
 
       console.log('שולח בקשה לאימות:', verificationRequest);
 
-      const response = await fetch(`https://localhost:7215/api/Download/verify-id-hybrid`, {
+      const response = await fetch(`${baseUrl}/Download/verify-id-hybrid`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

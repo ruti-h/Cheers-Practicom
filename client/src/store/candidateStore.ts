@@ -63,9 +63,10 @@ class CandidateStore {
   error: string | null = null;
   success: boolean = false;
   selectedGender: Gender | null = null;
-
+  baseUrl: string
   constructor() {
     makeAutoObservable(this);
+    this.baseUrl = import.meta.env.VITE_API_URL;
   }
 
   // עדכון מגדר נבחר
@@ -107,7 +108,7 @@ class CandidateStore {
       ageTo: 30,
       importantTraitsInMe: "",
       importantTraitsIAmLookingFor: "",
-      gender:""
+      gender: ""
     };
 
     // הוספת שדות לפי מגדר
@@ -125,7 +126,7 @@ class CandidateStore {
         preferredProfessional: "",
         preferredHeadCovering: "",
         preferredAnOutsider: "",
-        gender:"male"
+        gender: "male"
       };
     } else if (this.selectedGender === Gender.FEMALE) {
       this.registerData = {
@@ -136,7 +137,7 @@ class CandidateStore {
         prefferedYeshivaStyle: "",
         professional: "",
         headCovering: "",
-         gender:"female"
+        gender: "female"
       };
     }
   }
@@ -164,7 +165,7 @@ class CandidateStore {
 
     try {
       await axios.post(
-        "https://localhost:7215/api/Candidate",
+       `${this.baseUrl}/Candidate`,
         this.registerData,
         {
           headers: {

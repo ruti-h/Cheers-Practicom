@@ -3,7 +3,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import axios, { AxiosError } from "axios";
 import { User, Candidate, ErrorResponse } from "../components/models/types";
 
-const API_URL = "https://localhost:7215";
+const API_URL = import.meta.env.VITE_API_URL;;
 
 class UserStore {
   users: User[] = [];
@@ -22,7 +22,7 @@ class UserStore {
     try {
      
 
-      const response = await axios.post(`${API_URL}/api/user`, {
+      const response = await axios.post(`${API_URL}/user`, {
         ...userData
         
       });
@@ -54,7 +54,7 @@ class UserStore {
     this.error = null;
 
     try {
-      const response = await axios.get(`${API_URL}/api/user/${tz}`);
+      const response = await axios.get(`${API_URL}/user/${tz}`);
       runInAction(() => {
         this.currentUser = response.data;
         this.loading = false;
@@ -80,7 +80,7 @@ class UserStore {
     this.loading = true;
     this.error = null;
 
-    const url =`${API_URL}/api/user/${id}` ;
+    const url =`${API_URL}/user/${id}` ;
 
     try {
       const response = await axios.put(url, data);

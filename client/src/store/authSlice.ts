@@ -39,7 +39,7 @@ const initialState: AuthState = {
   error: null,
   isFormCompleted: null
 };
-
+const baseUrl= import.meta.env.VITE_API_URL;
 // יצירת אסינכרון thunk עבור תהליך הלוגין
 export const loginUser = createAsyncThunk<User, LoginCredentials>(
   'auth/login',
@@ -47,7 +47,7 @@ export const loginUser = createAsyncThunk<User, LoginCredentials>(
     try {
       
       const response = await axios.post<LoginResponse>(
-        'https://localhost:7215/api/Auth/login',
+        `${baseUrl}/Auth/login`,
         {
           email: credentials.username, // השרת מצפה ל-email
           password: credentials.password
@@ -86,7 +86,7 @@ export const checkCandidateCompletion = createAsyncThunk<boolean, string>(
       
       const token = localStorage.getItem('token');
       const encodedEmail = encodeURIComponent(email);
-      const url = `https://localhost:7215/api/Candidate/check-completion/${encodedEmail}`;
+      const url = `${baseUrl}/Candidate/check-completion/${encodedEmail}`;
       
       console.log('📡 שולח בקשה ל:', url);
       console.log('🔑 עם טוקן:', token ? 'קיים' : 'חסר');
@@ -128,7 +128,7 @@ export const loadUserFromStorage = createAsyncThunk<User | null>(
         
         // בדוק אם הטוקן עדיין תקף (אופציונלי)
         try {
-          await axios.get('https://localhost:7215/api/Auth/verify', {
+          await axios.get(`${baseUrl}/Auth/verify`, {
             headers: { 'Authorization': `Bearer ${token}` }
           });
         } catch (error) {
@@ -192,28 +192,8 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-      
-      // Check completion cases
-      // .addCase(checkCandidateCompletion.pending, () => {
-      //   console.log('⏳ בודק השלמת טופס...');
-      //   // לא משנים loading כי זה לא התחברות
-      // })
-      // .addCase(checkCandidateCompletion.fulfilled, (state, action) => {
-      //   console.log('✅ בדיקת טופס הושלמה:', action.payload);
-      //   state.isFormCompleted = action.payload;
-      // })
-      // .addCase(checkCandidateCompletion.rejected, (state, action) => {
-      //   state.isFormCompleted = false;
-      // })
-      
-      // // Load from storage cases
-      // .addCase(loadUserFromStorage.fulfilled, (state, action) => {
-     
-      //   state.user = action.payload;
-      // })
-      // .addCase(loadUserFromStorage.rejected, () => {
-      
-      // });
+ 
+  
   },
 });
 

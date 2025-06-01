@@ -166,7 +166,7 @@ const Shadchan = observer(() => {
     const fetchCandidates = async () => {
       try {
         setLoading(true)
-        const response = await axios.get("https://localhost:7215/api/Candidate")
+        const response = await axios.get(`${baseUrl}/Candidate`)
         const data = await response.data
         setCandidates(data)
         setLoading(false)
@@ -206,6 +206,7 @@ const Shadchan = observer(() => {
       }
     })
   }
+  const baseUrl  = import.meta.env.VITE_API_URL;
 
   // סינון מועמדים לפי מגדר ומונח חיפוש
   const filteredCandidates = candidates.filter((candidate) => {

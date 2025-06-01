@@ -51,11 +51,13 @@ class AuthStore {
   loading: boolean = false;
   error: string | null = null;
   registerSuccess: boolean = false;
-
+baseUrl:string
   constructor() {
     makeAutoObservable(this);
     // טעינת נתוני המשתמש מה-Session Storage בעת אתחול ה-store
     this.loadUserFromStorage();
+    this.baseUrl = import.meta.env.VITE_API_URL;
+
   }
 
   // פונקציה לפענוח הטוקן ושליפת תפקיד המשתמש
@@ -140,7 +142,7 @@ class AuthStore {
       
       // קריאת שרת ללוגין
       const response = await axios.post<ServerResponse>(
-        "https://localhost:7215/api/Auth/login",
+        `${this.baseUrl}/Auth/login`,
         credentials,
         {
           headers: {
@@ -183,7 +185,7 @@ class AuthStore {
       
       // קריאת שרת להרשמה
       const response = await axios.post(
-        "https://localhost:7215/api/Auth/register",
+       `${this.baseUrl}/Auth/register`,
         registerData,
         {
           headers: {

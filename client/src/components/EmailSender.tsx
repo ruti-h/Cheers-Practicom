@@ -754,19 +754,17 @@ const handleSendEmail = async () => {
     
     try {
       // 🔍 הדפסת נתוני המועמד לפני השליחה
-      console.log('📤 נתוני המועמד שנשלחים:', candidateData);
-      console.log('👤 שם פרטי (לפני שליחה):', candidateData.firstName);
-      console.log('👤 שם משפחה (לפני שליחה):', candidateData.lastName);
+  
       
       // בדיקת קידוד UTF-8
-      const testString = candidateData.firstName || '';
-      console.log('🔤 בדיקת קידוד UTF-8:', {
-        original: testString,
-        length: testString.length,
-        charCodes: Array.from(testString).map(char => char.charCodeAt(0)),
-        encoded: encodeURIComponent(testString),
-        isHebrew: /[\u0590-\u05FF]/.test(testString)
-      });
+      // const testString = candidateData.firstName || '';
+      // console.log('🔤 בדיקת קידוד UTF-8:', {
+      //   original: testString,
+      //   length: testString.length,
+      //   charCodes: Array.from(testString).map(char => char.charCodeAt(0)),
+      //   encoded: encodeURIComponent(testString),
+      //   isHebrew: /[\u0590-\u05FF]/.test(testString)
+      // });
   
       const emailRequest = {
         to: recipientEmail,
@@ -826,11 +824,10 @@ const handleSendEmail = async () => {
       }
   
       // 🔍 הדפסת הבקשה שנשלחת
-      console.log('📮 בקשת מייל שנשלחת:', emailRequest);
-      console.log('📝 JSON שנשלח:', JSON.stringify(emailRequest, null, 2));
+   const baseUrl  = import.meta.env.VITE_API_URL;
   
       // שליחה עם הגדרות קידוד מפורשות
-      const response = await fetch('https://localhost:7215/api/Email/send-email', {
+      const response = await fetch(`${baseUrl}/Email/send-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',

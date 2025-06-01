@@ -233,7 +233,7 @@ const CandidateEdit: React.FC = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [candidateData, setCandidateData] = useState<CandidateData | null>(null)
   const [loading, setLoading] = useState(true)
-
+const baseUrl= import.meta.env.VITE_API_URL;
   const { user } = useSelector((state: RootState) => state.auth as { user: { email: string; token: string } })
 
   const {
@@ -258,7 +258,7 @@ const CandidateEdit: React.FC = () => {
         
         // נסה לטעון מהשרת
         try {
-          const response = await fetch(`https://localhost:7215/api/Candidate/by-email/${encodeURIComponent(user.email)}`, {
+          const response = await fetch(`${baseUrl}/Candidate/by-email/${encodeURIComponent(user.email)}`, {
             headers: {
               'Authorization': `Bearer ${user.token}`,
               'Content-Type': 'application/json'
@@ -419,8 +419,8 @@ const CandidateEdit: React.FC = () => {
       // אם יש ID קיים, עדכן. אחרת צור חדש
       const method = candidateData?.id ? 'PUT' : 'POST'
       const url = candidateData?.id 
-        ? `https://localhost:7215/api/Candidate/${candidateData.id}`
-        : 'https://localhost:7215/api/Candidate'
+        ? `${baseUrl}/Candidate/${candidateData.id}`
+        : `${baseUrl}/Candidate`
 
       const response = await fetch(url, {
         method: method,

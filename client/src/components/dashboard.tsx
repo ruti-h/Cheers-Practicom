@@ -195,7 +195,7 @@ const Dashboard: React.FC = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState("")
   const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "error">("success")
-
+const baseUrl= import.meta.env.VITE_API_URL;
   useEffect(() => {
     if (!user) {
       navigate("/login")
@@ -225,7 +225,7 @@ const Dashboard: React.FC = () => {
 
       // נסה לטעון מהשרת תחילה
       try {
-        const response = await fetch(`https://localhost:7215/api/Candidate/by-email/${encodeURIComponent(user.email)}`, {
+        const response = await fetch(`${baseUrl}/Candidate/by-email/${encodeURIComponent(user.email)}`, {
           headers: {
             'Authorization': `Bearer ${user.token}`,
             'Content-Type': 'application/json'

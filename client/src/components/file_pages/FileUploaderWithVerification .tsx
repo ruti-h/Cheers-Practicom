@@ -56,6 +56,7 @@ const FileUploaderWithVerification = () => {
       setExtractedData(null);
     }
   };
+  const baseUrl  = import.meta.env.VITE_API_URL;
 
   const handleCandidateDataChange = (field: keyof CandidateData, value: string) => {
     setCandidateData(prev => ({
@@ -72,7 +73,7 @@ const FileUploaderWithVerification = () => {
 
     try {
       // שלב 1: קבלת Presigned URL מהשרת
-      const response = await axios.get('https://localhost:7215/api/upload/presigned-url', {
+      const response = await axios.get(`${baseUrl}/upload/presigned-url`, {
         params: { fileName: file.name }
       });
 
@@ -119,7 +120,7 @@ const FileUploaderWithVerification = () => {
 
       // שליחת בקשה לאימות
       const response = await axios.post<FileUploadResponse>(
-        'https://localhost:7215/api/upload/verify-candidate-id',
+       `${baseUrl}/upload/verify-candidate-id`,
         {
           IdCardFileName: file.name,
           Candidate: candidate
