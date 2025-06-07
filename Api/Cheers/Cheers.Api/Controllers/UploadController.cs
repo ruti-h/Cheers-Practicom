@@ -419,18 +419,27 @@ namespace Cheers.Api.Controllers
             string url = _s3Client.GetPreSignedURL(request);
             return Ok(new { url });
         }
-
         [HttpPost("file")]
-        public async Task<IActionResult> UploadFile(IFormFile file)
+        public async Task<IActionResult> UploadFile([FromForm] IFormFile file)
         {
             try
             {
+                Console.WriteLine($"Received file: {file?.FileName}");
+
                 if (file == null || file.Length == 0)
+                {
+                    Console.WriteLine("No file received");
                     return BadRequest("No file uploaded");
+                }
+
+                Console.WriteLine($"File size: {file.Length} bytes");
+                Console.WriteLine($"Content type: {file.ContentType}");
 
                 // יצירת key ייחודי לקובץ
                 var fileName = file.FileName;
                 var key = $"{DateTime.UtcNow:yyyyMMdd}/{Guid.NewGuid()}_{fileName}";
+
+                Console.WriteLine($"Uploading to S3 with key: {key}");
 
                 // יצירת request להעלאה ל-S3
                 var putRequest = new PutObjectRequest
@@ -444,6 +453,8 @@ namespace Cheers.Api.Controllers
 
                 // העלאה ל-S3
                 var response = await _s3Client.PutObjectAsync(putRequest);
+
+                Console.WriteLine($"S3 upload successful. ETag: {response.ETag}");
 
                 // יצירת URL לקובץ
                 var fileUrl = $"https://cheers-aplication.s3.us-west-2.amazonaws.com/{key}";
@@ -459,6 +470,8 @@ namespace Cheers.Api.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error in UploadFile: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 return StatusCode(500, new { error = $"Upload failed: {ex.Message}" });
             }
         }
