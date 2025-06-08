@@ -475,5 +475,41 @@ namespace Cheers.Api.Controllers
                 return StatusCode(500, new { error = $"Upload failed: {ex.Message}" });
             }
         }
+
+
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok(new { message = "Upload controller is working!", time = DateTime.Now });
+        }
+
+        [HttpPost("proxy")]
+        public async Task<IActionResult> ProxyUpload([FromForm] IFormFile file, [FromForm] string presignedUrl)
+        {
+            try
+            {
+                if (file == null || string.IsNullOrEmpty(presignedUrl))
+                    return BadRequest("Missing file or presigned URL");
+
+                using var httpClient = new HttpClient();
+                using var content = new StreamContent(file.OpenReadStream());
+                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+
+                var response = await httpClient.PutAsync(presignedUrl, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return Ok(new { message = "Upload successful" });
+                }
+                else
+                {
+                    return StatusCode(500, new { error = "S3 upload failed" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
     }
 }
