@@ -422,26 +422,21 @@ namespace Cheers.Api.Controllers
         [HttpPost("file")]
         public async Task<IActionResult> UploadFile([FromForm] IFormFile file)
         {
+            Console.WriteLine("=== Upload file endpoint reached ===");
+
             try
             {
-                Console.WriteLine($"Received file: {file?.FileName}");
-
                 if (file == null || file.Length == 0)
                 {
                     Console.WriteLine("No file received");
                     return BadRequest("No file uploaded");
                 }
 
-                Console.WriteLine($"File size: {file.Length} bytes");
-                Console.WriteLine($"Content type: {file.ContentType}");
+                Console.WriteLine($"File: {file.FileName}, Size: {file.Length}");
 
-                // יצירת key ייחודי לקובץ
                 var fileName = file.FileName;
                 var key = $"{DateTime.UtcNow:yyyyMMdd}/{Guid.NewGuid()}_{fileName}";
 
-                Console.WriteLine($"Uploading to S3 with key: {key}");
-
-                // יצירת request להעלאה ל-S3
                 var putRequest = new PutObjectRequest
                 {
                     BucketName = "cheers-aplication",
@@ -451,13 +446,10 @@ namespace Cheers.Api.Controllers
                     ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256
                 };
 
-                // העלאה ל-S3
                 var response = await _s3Client.PutObjectAsync(putRequest);
-
-                Console.WriteLine($"S3 upload successful. ETag: {response.ETag}");
-
-                // יצירת URL לקובץ
                 var fileUrl = $"https://cheers-aplication.s3.us-west-2.amazonaws.com/{key}";
+
+                Console.WriteLine("Upload successful!");
 
                 return Ok(new
                 {
@@ -470,9 +462,8 @@ namespace Cheers.Api.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in UploadFile: {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
-                return StatusCode(500, new { error = $"Upload failed: {ex.Message}" });
+                Console.WriteLine($"ERROR: {ex.Message}");
+                return StatusCode(500, new { error = ex.Message });
             }
         }
 
@@ -483,33 +474,5 @@ namespace Cheers.Api.Controllers
             return Ok(new { message = "Upload controller is working!", time = DateTime.Now });
         }
 
-        [HttpPost("proxy")]
-        public async Task<IActionResult> ProxyUpload([FromForm] IFormFile file, [FromForm] string presignedUrl)
-        {
-            try
-            {
-                if (file == null || string.IsNullOrEmpty(presignedUrl))
-                    return BadRequest("Missing file or presigned URL");
-
-                using var httpClient = new HttpClient();
-                using var content = new StreamContent(file.OpenReadStream());
-                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
-
-                var response = await httpClient.PutAsync(presignedUrl, content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return Ok(new { message = "Upload successful" });
-                }
-                else
-                {
-                    return StatusCode(500, new { error = "S3 upload failed" });
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { error = ex.Message });
-            }
-        }
     }
 }
