@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cheers.Core.DTOs
+namespace Cheers.Api.Models
 {
     public class UploadFileRequest
     {
