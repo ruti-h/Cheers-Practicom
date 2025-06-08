@@ -4,6 +4,7 @@ import type React from "react"
 import { Box, Container, Typography, Button } from "@mui/material"
 import { ExpandMore as ChevronDown } from "@mui/icons-material"
 import FloatingCircles from "../UI/floating-circles"
+import { Link } from "react-router-dom"
 
 interface HeroSectionProps {
   isVisible: boolean
@@ -143,6 +144,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ isVisible, scrollToFeatures }
             }}
           >
             <Button
+              component={Link}
+            to="/register"
               variant="contained"
               size="large"
               sx={{

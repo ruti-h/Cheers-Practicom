@@ -392,6 +392,7 @@ using Amazon.S3.Model;
 using Amazon.S3;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Cheers.Core.DTOs;
 
 namespace Cheers.Api.Controllers
 {
@@ -420,12 +421,14 @@ namespace Cheers.Api.Controllers
             return Ok(new { url });
         }
         [HttpPost("file")]
-        public async Task<IActionResult> UploadFile([FromForm] IFormFile file)
+        public async Task<IActionResult> UploadFile([FromForm] UploadFileRequest request)
         {
             Console.WriteLine("=== Upload file endpoint reached ===");
 
             try
             {
+                var file = request.File;
+
                 if (file == null || file.Length == 0)
                 {
                     Console.WriteLine("No file received");
@@ -466,6 +469,7 @@ namespace Cheers.Api.Controllers
                 return StatusCode(500, new { error = ex.Message });
             }
         }
+
 
 
         [HttpGet("test")]

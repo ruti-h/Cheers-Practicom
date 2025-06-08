@@ -67,27 +67,86 @@ const UploadDialog: React.FC<UploadDialogProps> = ({
     }
   };
 
-  const handleUpload = async () => {
-    if (!file) return;
+  // const handleUpload = async () => {
+  //   if (!file) return;
 
-    try {
-      setUploadError('');
-      console.log('מנסה להתחבר לשרת...');
+  //   try {
+  //     setUploadError('');
+  //     console.log('מנסה להתחבר לשרת...');
       
     
-      console.log(`בודק שרת ב: ${baseUrl}`);
-      const response = await fetch(`${baseUrl}/upload/presigned-url?fileName=${encodeURIComponent(file.name)}`);
+  //     console.log(`בודק שרת ב: ${baseUrl}`);
+  //     const response = await fetch(`${baseUrl}/upload/presigned-url?fileName=${encodeURIComponent(file.name)}`);
       
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
       
 
-      const data = await response.json();
-      const presignedUrl = data.url;
-      console.log('קיבלתי Presigned URL:', presignedUrl);
+  //     const data = await response.json();
+  //     const presignedUrl = data.url;
+  //     console.log('קיבלתי Presigned URL:', presignedUrl);
 
-      // העלאה עם progress tracking
+  //     // העלאה עם progress tracking
+  //     const xhr = new XMLHttpRequest();
+      
+  //     return new Promise<void>((resolve, reject) => {
+  //       xhr.upload.addEventListener('progress', (e) => {
+  //         if (e.lengthComputable) {
+  //           const percent = Math.round((e.loaded * 100) / e.total);
+  //           setProgress(percent);
+  //         }
+  //       });
+
+  //       xhr.addEventListener('load', () => {
+  //         if (xhr.status >= 200 && xhr.status < 300) {
+  //           setUploadedFileName(file.name);
+  //           setShowVerification(true);
+  //           resolve();
+  //         } else {
+  //           reject(new Error(`Upload failed with status: ${xhr.status}`));
+  //         }
+  //       });
+
+  //       xhr.addEventListener('error', () => {
+  //         reject(new Error('Upload failed'));
+  //       });
+
+  //       const proxyUrl = presignedUrl.replace('https://cheers-aplication.s3.us-west-2.amazonaws.com', '/api/s3')
+  //       xhr.open('PUT', proxyUrl);
+        
+  //       xhr.setRequestHeader('Content-Type', file.type);
+  //       xhr.send(file);
+  //     });
+      
+  //   } catch (error: any) {
+  //     console.error('שגיאה בהעלאה:', error);
+      
+  //     let errorMessage = 'שגיאה בהעלאת הקובץ';
+      
+  //     if (error.name === 'TypeError' && error.message.includes('fetch')) {
+  //       errorMessage = 'השרת לא זמין. וודא שהשרת .NET רץ על הפורט 7215';
+  //     } else if (error.message) {
+  //       errorMessage = error.message;
+  //     }
+      
+  //     setUploadError(errorMessage);
+  //     setProgress(0);
+  //   }
+  // };
+
+  const handleUpload = async () => {
+    if (!file) return;
+  
+    try {
+      setUploadError('');
+      console.log('מעלה קובץ דרך השרת...');
+      
+      // יצירת FormData עם הקובץ
+      const formData = new FormData();
+      formData.append('file', file);
+      
+      // העלאה דרך השרת עם progress tracking
       const xhr = new XMLHttpRequest();
       
       return new Promise<void>((resolve, reject) => {
@@ -97,24 +156,26 @@ const UploadDialog: React.FC<UploadDialogProps> = ({
             setProgress(percent);
           }
         });
-
+  
         xhr.addEventListener('load', () => {
           if (xhr.status >= 200 && xhr.status < 300) {
+            const response = JSON.parse(xhr.responseText);
             setUploadedFileName(file.name);
             setShowVerification(true);
+            console.log('קובץ הועלה בהצלחה:', response);
             resolve();
           } else {
             reject(new Error(`Upload failed with status: ${xhr.status}`));
           }
         });
-
+  
         xhr.addEventListener('error', () => {
           reject(new Error('Upload failed'));
         });
-
-        xhr.open('PUT', presignedUrl);
-        xhr.setRequestHeader('Content-Type', file.type);
-        xhr.send(file);
+  
+        // שליחה לשרת שלך (לא ל-S3!)
+        xhr.open('POST', `${baseUrl}/upload/file`);
+        xhr.send(formData);
       });
       
     } catch (error: any) {
