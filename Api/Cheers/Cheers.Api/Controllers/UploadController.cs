@@ -392,7 +392,7 @@ using Amazon.S3.Model;
 using Amazon.S3;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Cheers.Core.DTOs;
+using Cheers.Api.Models;
 
 namespace Cheers.Api.Controllers
 {
