@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/api/s3/*"
-  to = "https://cheers-aplication.s3.us-west-2.amazonaws.com/:splat"
+  to = "https://cheers-aplication.s3.us-east-1.amazonaws.com/:splat"
   status = 200
   force = true
   headers = {X-Frame-Options = "ALLOWALL"}

@@ -112,7 +112,7 @@ const UploadDialog: React.FC<UploadDialogProps> = ({
   //         reject(new Error('Upload failed'));
   //       });
 
-  //       const proxyUrl = presignedUrl.replace('https://cheers-aplication.s3.us-west-2.amazonaws.com', '/api/s3')
+  //       const proxyUrl = presignedUrl.replace('https://cheers-aplication.s3.us-east-1.amazonaws.com', '/api/s3')
   //       xhr.open('PUT', proxyUrl);
         
   //       xhr.setRequestHeader('Content-Type', file.type);

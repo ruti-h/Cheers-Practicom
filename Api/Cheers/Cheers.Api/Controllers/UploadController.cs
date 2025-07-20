@@ -450,7 +450,7 @@ namespace Cheers.Api.Controllers
                 };
 
                 var response = await _s3Client.PutObjectAsync(putRequest);
-                var fileUrl = $"https://cheers-aplication.s3.us-west-2.amazonaws.com/{key}";
+                var fileUrl = $"https://cheers-aplication.s3.us-east-1.amazonaws.com/{key}";
 
                 Console.WriteLine("Upload successful!");
 
