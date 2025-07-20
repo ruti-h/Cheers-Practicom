@@ -94,9 +94,20 @@ if (string.IsNullOrEmpty(awsAccessKey) || string.IsNullOrEmpty(awsSecretKey) || 
 // AWS S3 Client
 builder.Services.AddSingleton<IAmazonS3>(serviceProvider =>
 {
+    //var credentials = new Amazon.Runtime.BasicAWSCredentials(awsAccessKey, awsSecretKey);
+
+    //var region = Amazon.RegionEndpoint.GetBySystemName(awsRegion);
+    //return new AmazonS3Client(credentials, region);
     var credentials = new Amazon.Runtime.BasicAWSCredentials(awsAccessKey, awsSecretKey);
     var region = Amazon.RegionEndpoint.GetBySystemName(awsRegion);
-    return new AmazonS3Client(credentials, region);
+
+    var config = new AmazonS3Config
+    {
+        RegionEndpoint = region,
+        ForcePathStyle = true // <<< הוסיפי את זה!
+    };
+
+    return new AmazonS3Client(credentials, config);
 });
 
 // JWT Configuration - מתוקן למקומי במקום Google OAuth
