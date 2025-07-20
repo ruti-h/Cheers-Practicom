@@ -355,10 +355,44 @@
 //    }
 //}
 
+////using Amazon.S3.Model;
+////using Amazon.S3;
+////using Microsoft.AspNetCore.Http;
+////using Microsoft.AspNetCore.Mvc;
+
+////namespace Cheers.Api.Controllers
+////{
+////    [Route("api/[controller]")]
+////    [ApiController]
+////    public class UploadController : ControllerBase
+////    {
+////        private readonly IAmazonS3 _s3Client;
+////        public UploadController(IAmazonS3 s3Client)
+////        {
+////            _s3Client = s3Client;
+////        }
+////        [HttpGet("presigned-url")]
+////        public async Task<IActionResult> GetPresignedUrl([FromQuery] string fileName)
+////        {
+////            var request = new GetPreSignedUrlRequest
+////            {
+////                BucketName = "cheers-aplication",
+////                Key = fileName,
+////                Verb = HttpVerb.PUT,
+////                Expires = DateTime.UtcNow.AddMinutes(60),
+////                //ContentType = "image/jpeg" // או סוג הקובץ המתאים
+////            };
+////            string url = _s3Client.GetPreSignedURL(request);
+////            return Ok(new { url });
+////        }
+////    }
+//}
+
 using Amazon.S3.Model;
 using Amazon.S3;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Cheers.Api.Models;
 
 namespace Cheers.Api.Controllers
 {
@@ -367,10 +401,12 @@ namespace Cheers.Api.Controllers
     public class UploadController : ControllerBase
     {
         private readonly IAmazonS3 _s3Client;
+
         public UploadController(IAmazonS3 s3Client)
         {
             _s3Client = s3Client;
         }
+
         [HttpGet("presigned-url")]
         public async Task<IActionResult> GetPresignedUrl([FromQuery] string fileName)
         {
@@ -380,10 +416,67 @@ namespace Cheers.Api.Controllers
                 Key = fileName,
                 Verb = HttpVerb.PUT,
                 Expires = DateTime.UtcNow.AddMinutes(60),
-                //ContentType = "image/jpeg" // או סוג הקובץ המתאים
             };
             string url = _s3Client.GetPreSignedURL(request);
             return Ok(new { url });
         }
+        [HttpPost("file")]
+        public async Task<IActionResult> UploadFile([FromForm] UploadFileRequest request)
+        {
+            Console.WriteLine("=== Upload file endpoint reached ===");
+
+            try
+            {
+                var file = request.File;
+
+                if (file == null || file.Length == 0)
+                {
+                    Console.WriteLine("No file received");
+                    return BadRequest("No file uploaded");
+                }
+
+                Console.WriteLine($"File: {file.FileName}, Size: {file.Length}");
+
+                var fileName = file.FileName;
+                var key = $"{DateTime.UtcNow:yyyyMMdd}/{Guid.NewGuid()}_{fileName}";
+
+                var putRequest = new PutObjectRequest
+                {
+                    BucketName = "cheers-aplication",
+                    Key = key,
+                    InputStream = file.OpenReadStream(),
+                    ContentType = file.ContentType,
+                    ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256
+                };
+
+                var response = await _s3Client.PutObjectAsync(putRequest);
+                var fileUrl = $"https://cheers-aplication.s3.us-west-2.amazonaws.com/{key}";
+
+                Console.WriteLine("Upload successful!");
+
+                return Ok(new
+                {
+                    message = "File uploaded successfully",
+                    fileName = fileName,
+                    key = key,
+                    url = fileUrl,
+                    etag = response.ETag
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERROR: {ex.Message}");
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
+
+
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok(new { message = "Upload controller is working!", time = DateTime.Now });
+        }
+
     }
 }

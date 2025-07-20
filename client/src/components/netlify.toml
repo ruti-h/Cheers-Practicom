@@ -1,0 +1,13 @@
+[[redirects]]
+  from = "/api/s3/*"
+  to = "https://cheers-aplication.s3.us-west-2.amazonaws.com/:splat"
+  status = 200
+  force = true
+  headers = {X-Frame-Options = "ALLOWALL"}
+
+[[headers]]
+  for = "/api/s3/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, PUT, POST, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "*"
