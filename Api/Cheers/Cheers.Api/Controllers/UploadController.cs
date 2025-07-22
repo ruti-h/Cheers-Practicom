@@ -465,8 +465,8 @@ namespace Cheers.Api.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"ERROR: {ex.Message}");
-                return StatusCode(500, new { error = ex.Message });
+                Console.WriteLine($"ERROR uploed file:  {ex.Message}");
+                return StatusCode(500, new { field="err", error = ex.Message });
             }
         }
 
